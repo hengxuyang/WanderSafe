@@ -6,6 +6,12 @@ A comprehensive IoT monitoring system designed to enhance the safety and well-be
 
 WanderSafe combines hardware sensors (M5StickCPlus devices) with a web-based dashboard to provide caregivers with real-time information about elderly individuals' location, movement, and emergency situations. The system uses BLE beacons for location tracking and ultrasonic sensors for movement detection.
 
+## Devices
+- **Room Sensors**: Flash mqtt.ino for the room sensors. change the room name in the deviceID and topics.
+- **BLE Wearable**: Flash ble.ino into the other M5StickC Plus to allow them advertise using BLE.
+
+
+
 ## Features
 
 - **Real-time Location Tracking**: Monitors the location of individuals within different rooms using BLE beacons
