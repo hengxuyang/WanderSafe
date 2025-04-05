@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartElder Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">SmartElder Dashboard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-3">
+    <!-- Emergency Alerts -->
+    <div id="emergency-alerts" class="alert alert-danger" style="display: none;">
+      <h4><i class="bi bi-exclamation-triangle-fill"></i> Emergency Alert</h4>
+      <div id="emergency-details"></div>
+    </div>
+
+    <div class="row">
+      <!-- Left Column: Add Forms -->
+      <div class="col-md-4">
+        <!-- Add Room Form -->
+        <div class="card mb-3">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Add New Room</h5>
+          </div>
+          <div class="card-body">
+            <form id="add-room-form">
+              <div class="mb-3">
+                <label for="room-name" class="form-label">Room Name</label>
+                <input type="text" class="form-control" id="room-name" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Room</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Add Sensor Form -->
+        <div class="card mb-3">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Add New Sensor</h5>
+          </div>
+          <div class="card-body">
+            <form id="add-sensor-form">
+              <div class="mb-3">
+                <label for="sensor-room" class="form-label">Room</label>
+                <select class="form-select" id="sensor-room" required>
+                  <!-- Rooms will be populated here -->
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="sensor-name" class="form-label">Sensor Name</label>
+                <input type="text" class="form-control" id="sensor-name" required>
+              </div>
+              <div class="mb-3">
+                <label for="sensor-type" class="form-label">Sensor Type</label>
+                <select class="form-select" id="sensor-type" required>
+                  <option value="temperature">Temperature</option>
+                  <option value="humidity">Humidity</option>
+                  <option value="motion">Motion</option>
+                  <option value="block_distance">block_distance</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="sensor-value" class="form-label">Initial Value (optional)</label>
+                <input type="text" class="form-control" id="sensor-value">
+              </div>
+              <button type="submit" class="btn btn-primary">Add Sensor</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Dashboard -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Smart Elder Monitoring Dashboard</h5>
+          </div>
+          <div class="card-body">
+            <div id="rooms-container">
+              <!-- Rooms will be displayed here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <template id="room-template">
+    <div class="room-card mb-4">
+      <div class="card">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+          <h5 class="room-name mb-0"></h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Sensors</h6>
+              <div class="sensors-list list-group mb-3">
+                <!-- Sensors will be displayed here -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6>People</h6>
+              <div class="beacons-list list-group">
+                <!-- Beacons will be displayed here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="sensor-template">
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <span class="sensor-name fw-bold"></span>
+        <small class="sensor-type text-muted d-block"></small>
+      </div>
+      <span class="sensor-value badge bg-primary rounded-pill"></span>
+    </div>
+  </template>
+
+  <template id="beacon-template">
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <span class="beacon-name fw-bold"></span>
+        <small class="beacon-rssi text-muted d-block"></small>
+      </div>
+      <span class="beacon-status badge rounded-pill"></span>
+    </div>
+  </template>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
